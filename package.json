@@ -1,0 +1,19 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Back end of media synergy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NajmusSakibRashid/MediaSynergyBackEnd.git"
+  },
+  "author": "Najmus Sakib Rashid, Sakib Sobaha, GFZ Shuvro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NajmusSakibRashid/MediaSynergyBackEnd/issues"
+  },
+  "homepage": "https://github.com/NajmusSakibRashid/MediaSynergyBackEnd#readme"
+}
