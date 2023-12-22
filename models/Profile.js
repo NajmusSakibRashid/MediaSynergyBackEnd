@@ -4,6 +4,7 @@ const profileSchema=new mongoose.Schema({
   user:{
     type:mongoose.SchemaTypes.ObjectId,
     ref:'User',
+    required:true,
   },
   logo:String,
   name:String,

@@ -8,6 +8,7 @@ require('dotenv').config();
 const signupRouter = require('./routers/signup');
 const signinRouter = require('./routers/signin');
 const profileRouter = require('./routers/profiles');
+const contentRouter = require('./routers/content');
 
 const port = process.env.PORT || 3000;
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/signup', signupRouter);
 app.use('/signin', signinRouter);
 app.use('/profiles', profileRouter);
+app.use('/content', contentRouter);
 
 app.listen(port,()=>{
     console.log(`Listening on port ${port}`);
