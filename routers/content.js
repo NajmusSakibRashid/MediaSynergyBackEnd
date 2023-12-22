@@ -39,4 +39,14 @@ router.post('/',async (req,res)=>{
   }
 });
 
+router.delete('/:id',async (req,res)=>{
+  try
+  {
+    const deletedContent=await Content.findOneAndDelete({_id:req.params.id , user:req.user.id});
+    res.json(deletedContent);
+  }catch{
+    res.json({message:'Error'});
+  }
+});
+
 module.exports=router;

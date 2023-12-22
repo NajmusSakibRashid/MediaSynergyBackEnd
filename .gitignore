@@ -1,3 +1,6 @@
 .*
 !.gitignore
 node_modules
+data
+add-user.js
+add-profiles.js

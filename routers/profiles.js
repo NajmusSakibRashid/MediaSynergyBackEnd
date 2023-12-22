@@ -31,7 +31,7 @@ router.post('/',async (req,res)=>{
       },
       contact: {
         physicalAddress: req.body.physicalAddress,
-        mapLink: req.body.mapLink,
+        latlng: req.body.latlng,
         phoneNumber: req.body.phoneNumber,
         email: req.body.email,
         website: req.body.website,

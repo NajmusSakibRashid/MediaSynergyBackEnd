@@ -15,7 +15,7 @@ const profileSchema=new mongoose.Schema({
   },
   contact:{
     physicalAddress:String,
-    mapLink:String,
+    latlng:String,
     phoneNumber:[String],
     email:String,
     website:String,
@@ -27,7 +27,11 @@ const profileSchema=new mongoose.Schema({
   },
   productConsumer:[{
     product:String,
-    consumer:String,
+    consumer:{
+      ageFrom:Number,
+      ageTo:Number,
+      gender:String
+    },
   }],
   awards:[{
     image:String,
