@@ -4,8 +4,13 @@ const profile=require('../models/Profile');
 const router=express.Router();
 
 const authMiddleware=require('../middlewares/authentication');
+const profilePublishRouter=require('./publish/publish-profile');
 
+router.use(express.json());
+router.use(express.urlencoded({extended:true}));
 router.use(authMiddleware);
+
+router.use('/publish',profilePublishRouter);
 
 router.get('/',async (req,res)=>{
   const profiles=await profile.find({user:req.user.id});
@@ -47,6 +52,16 @@ router.post('/',async (req,res)=>{
       testimonials: req.body.testimonials,
     });
     res.json(newProfile);
+  }catch{
+    res.json({message:'Error'});
+  }
+});
+
+router.delete('/:id',async (req,res)=>{
+  try
+  {
+    const deletedProfile=await profile.findOneAndDelete({_id:req.params.id , user:req.user.id});
+    res.json(deletedProfile);
   }catch{
     res.json({message:'Error'});
   }
