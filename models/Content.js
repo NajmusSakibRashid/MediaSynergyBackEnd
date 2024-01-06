@@ -8,6 +8,7 @@ const contentSchema = new mongoose.Schema({
   media: String,
   category: String,
   date: String,
+  clickcount: Number,
   productsServices: [{
     name: String,
     description: String,
