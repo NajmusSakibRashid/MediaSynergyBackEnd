@@ -1,12 +1,6 @@
 const express=require('express');
 const router=express.Router();
-const Content=require('../models/Content');
-
-const authMiddleware=require('../middlewares/authentication');
-
-router.use(express.json());
-router.use(express.urlencoded({extended:true}));
-router.use(authMiddleware);
+const Content=require('../../models/Content');
 
 router.get('/',async (req,res)=>{
   const contents=await Content.find({user:req.user.id});
@@ -26,7 +20,7 @@ router.post('/',async (req,res)=>{
       user: req.user.id,
       title: req.body.title,
       description: req.body.description,
-      image: req.body.image,
+      media: req.body.media,
       category: req.body.category,
       date: req.body.date,
       productsServices: req.body.productsServices,

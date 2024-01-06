@@ -1,16 +1,7 @@
 const express=require('express');
-const user=require('../models/User');
-const profile=require('../models/Profile');
+const user=require('../../models/User');
+const profile=require('../../models/Profile');
 const router=express.Router();
-
-const authMiddleware=require('../middlewares/authentication');
-const profilePublishRouter=require('./publish/publish-profile');
-
-router.use(express.json());
-router.use(express.urlencoded({extended:true}));
-router.use(authMiddleware);
-
-router.use('/publish',profilePublishRouter);
 
 router.get('/',async (req,res)=>{
   const profiles=await profile.find({user:req.user.id});

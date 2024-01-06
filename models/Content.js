@@ -5,7 +5,7 @@ const User = require('./User');
 const contentSchema = new mongoose.Schema({
   title: String,
   description: String,
-  image: String,
+  media: String,
   category: String,
   date: String,
   productsServices: [{
@@ -13,15 +13,12 @@ const contentSchema = new mongoose.Schema({
     description: String,
     image: String,
     price: String,
-    category: String,
-    date: String,
+    category: String
   }],
   consumer: [{
-    name: String,
-    description: String,
-    image: String,
-    category: String,
-    date: String,
+    ageFrom: Number,
+    ageTo: Number,
+    gender: String
   }],
   profile: {
     type: mongoose.SchemaTypes.ObjectId,

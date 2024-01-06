@@ -4,9 +4,6 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/User');
 
-router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
-
 router.post('/', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {

@@ -3,8 +3,6 @@ const bcrypt=require('bcrypt');
 const router=express.Router();
 const User=require('../models/User');
 
-router.use(express.urlencoded({extended:true}));
-
 router.post('/',async (req,res)=>{
   try
   {

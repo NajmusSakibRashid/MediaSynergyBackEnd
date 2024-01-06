@@ -1,12 +1,6 @@
 const express=require('express');
 const router=express.Router();
-const Schedule=require('../models/Schedule');
-
-const authMiddleware=require('../middlewares/authentication');
-
-router.use(express.json());
-router.use(express.urlencoded({extended:true}));
-router.use(authMiddleware);
+const Schedule=require('../../models/Schedule');
 
 router.get('/',async (req,res)=>{
   try
