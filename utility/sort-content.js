@@ -19,54 +19,66 @@ function deg2rad(deg) {
   return deg * (Math.PI / 180);
 }
 
-const sort = (contents, client) => {
-  contents = contents.map(content => {
-    const today = new Date();
-    const published = new Date(content.date);
-    let consumerCategory = {
-      distance: 1e9
-    };
-    content.consumer.forEach(consumer => {
-      if (consumer.gender == 'both' || consumer.gender == client.gender) {
-        distance = client.age < consumer.ageFrom ? (consumer.ageFrom - client.age) : client.age > consumer.ageTo ? (client.age - consumer.ageTo) : 0;
-        if (distance < consumerCategory.distance) {
-          consumerCategory = {
-            distance,
-            consumer
-          };
+const sort = async (contents, client) => {
+  contents = await Promise.all(
+    contents.map(async content => {
+      const today = new Date();
+      const published = new Date(content.date);
+      let consumerCategory = {
+        distance: 1e9
+      };
+      content.consumer.forEach(consumer => {
+        if (consumer.gender == 'both' || consumer.gender == client.gender) {
+          distance = client.age < consumer.ageFrom ? (consumer.ageFrom - client.age) : client.age > consumer.ageTo ? (client.age - consumer.ageTo) : 0;
+          if (distance < consumerCategory.distance) {
+            consumerCategory = {
+              distance,
+              consumer
+            };
+          }
         }
-      }
-    });
-    const company = Profile.findOne({ _id: content.profile });
-    const companylatlng = company.contact.latlng;
-    let searchMatchCount = 0;
-    const stringified = JSON.stringify(content);
-    client.searchHistory.forEach(search => {
-      if (stringified.toLowerCase().includes(search.toLowerCase())) {
-        searchMatchCount++;
-      }
-    });
-    let companyMatchCount = 0;
-    client.clickHistory.forEach(click => {
-      if (click.profile == content.profile) {
-        companyMatchCount++;
-      }
-    });
-    content.score =
-      (content.clickcount * 0.1) -
-      (today - published) / 86400000 -
-      (consumerCategory.distance * 0.1) +
-      (searchMatchCount * 0.1) -
-      (calculateDistance(client.latlng, companylatlng) * 0.1) +
-      (companyMatchCount * 0.1);
-    return content;
-  });
+      });
+      const company = await Profile.findOne({ _id: content.profile });
+      const companylatlng = company.contact.latlng;
+      let searchMatchCount = 0;
+      const stringified = JSON.stringify(content);
+      client.searchHistory.forEach(search => {
+        if (stringified.toLowerCase().includes(search.toLowerCase())) {
+          searchMatchCount++;
+        }
+      });
+      let companyMatchCount = 0;
+      client.clickHistory.forEach(click => {
+        if (click.profile == content.profile) {
+          companyMatchCount++;
+        }
+      });
+      content.score =
+        (content.clickcount * 0.4) -
+        (today - published) / 86400000 -
+        (consumerCategory.distance * 0.1) +
+        (searchMatchCount * 2) -
+        (calculateDistance(client.latlng, companylatlng) * 0.01) +
+        (companyMatchCount );
+
+      // console.log({
+      //   clickcount: content.clickcount,
+      //   published: today - published,
+      //   ageDistance: consumerCategory.distance,
+      //   searchMatchCount,
+      //   companyMatchCount,
+      //   score: content.score,
+      //   distance: calculateDistance(client.latlng, companylatlng)
+      // })
+      return content;
+    })
+  );
 
   // Sort the contents by score in descending order
   contents.sort((a, b) => b.score - a.score);
 
   // Return the top 10 scorer contents
-  return contents.slice(0, 10);
+  return contents;
 };
 
 module.exports=sort;
