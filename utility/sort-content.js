@@ -28,7 +28,7 @@ const sort = async (contents, client) => {
         distance: 1e9
       };
       content.consumer.forEach(consumer => {
-        if (consumer.gender == 'both' || consumer.gender == client.gender) {
+        if (consumer.gender.toLowerCase() == 'both' || consumer.gender.toLowerCase() == client.gender.toLowerCase()) {
           distance = client.age < consumer.ageFrom ? (consumer.ageFrom - client.age) : client.age > consumer.ageTo ? (client.age - consumer.ageTo) : 0;
           if (distance < consumerCategory.distance) {
             consumerCategory = {

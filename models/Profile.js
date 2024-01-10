@@ -37,10 +37,10 @@ const profileSchema=new mongoose.Schema({
     image:String,
     award:String,
     description:String,
-    year:String,
+    year:Number,
   }],
   history:[{
-    year:String,
+    year:Number,
     description:String,
   }],
   testimonials:[{

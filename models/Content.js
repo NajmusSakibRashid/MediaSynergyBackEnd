@@ -5,7 +5,7 @@ const User = require('./User');
 const contentSchema = new mongoose.Schema({
   title: String,
   description: String,
-  media: String,
+  media: [String],
   category: String,
   date: String,
   clickcount: Number,

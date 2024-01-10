@@ -8,6 +8,7 @@ const search=(contents,string)=>{
       }
     }
   });
+  // analytics write in database
   return result;
 };
 

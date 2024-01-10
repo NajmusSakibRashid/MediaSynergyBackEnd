@@ -1,6 +1,9 @@
 const express=require('express');
 const router=express.Router();
-const Schedule=require('../../models/Schedule');
+const Schedule=require('../../../models/Schedule');
+const Content=require('../../../models/Content');
+
+const socialPost=require('../../../utility/social-post');
 
 router.get('/',async (req,res)=>{
   try
@@ -26,13 +29,26 @@ router.post('/',async (req,res)=>{
   try
   {
     const newSchedule = await Schedule.create({
+      user:req.user.id,
       content:req.body.content,
       date: req.body.date,
-      time: req.body.time,
-      media: req.body.media,
-      user: req.user.id,
+      platforms: req.body.platforms,
     });
     res.json(newSchedule);
+  }catch(err){
+    console.log(err);
+    res.json({message:'Error'});
+  }
+});
+
+router.put('/:id',async (req,res)=>{
+  try
+  {
+    const updatedSchedule=await Schedule.findOneAndUpdate({_id:req.params.id , user:req.user.id},{
+      date: req.body.date,
+      platforms: req.body.platforms,
+    });
+    res.json(updatedSchedule);
   }catch{
     res.json({message:'Error'});
   }
