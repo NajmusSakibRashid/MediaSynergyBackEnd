@@ -20,6 +20,10 @@ mongoose.connect(process.env.MONGODB_URI,{
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/',(req,res)=>{
+  res.send('Hello World');
+});
+
 app.use('/signup', signupRouter);
 app.use('/signin', signinRouter);
 app.use('/user', userRouter);
