@@ -4,31 +4,12 @@ const router=express.Router();
 const Content=require('../../models/Content');
 const Consumer=require('../../models/Consumer');
 const search=require('../../utility/search-content');
-const formatDate=require('../../utility/format-date');
 const sort=require('../../utility/sort-content');
-
-let contents=[];
-let lastUpdated=0;
-
-const init = async () => {
-  try
-  {
-    const localContents = await Content.find();
-    contents.push(...localContents);
-    lastUpdated = formatDate(new Date());
-  }catch{
-    console.log('Error');
-  }
-}
-
-init();
 
 router.get('/', async (req, res) => {
   try
   {
-    const latestContents = await Content.find({ date: { $gt: lastUpdated } });
-    contents.push(...latestContents);
-    lastUpdated = formatDate(new Date());
+    const contents = await Content.find({});
     if (req.query.search) {
       const consumer = req.headers['consumer'];
       const result = search(contents, req.query.search);

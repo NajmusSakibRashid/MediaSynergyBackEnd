@@ -3,8 +3,6 @@ const router=express.Router();
 const Schedule=require('../../../models/Schedule');
 const Content=require('../../../models/Content');
 
-const socialPost=require('../../../utility/social-post');
-
 router.get('/',async (req,res)=>{
   try
   {
@@ -28,6 +26,13 @@ router.get('/:id',async (req,res)=>{
 router.post('/',async (req,res)=>{
   try
   {
+    const content=await Content.findOne({_id:req.body.content});
+    if(!content){
+      return res.json({message:'Content not found'});
+    }
+    if(content.user!=req.user.id){
+      return res.json({message:'Not authorized'});
+    }
     const newSchedule = await Schedule.create({
       user:req.user.id,
       content:req.body.content,
