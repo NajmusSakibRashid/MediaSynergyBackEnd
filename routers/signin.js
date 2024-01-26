@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
   {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      res.json({ message: 'User not found' });
+      res.status(401).json({ message: 'User not found' });
     } else {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
       if (isMatch) {
@@ -19,11 +19,11 @@ router.post('/', async (req, res) => {
         });
       }
       else {
-        res.json({ message: 'Incorrect password' });
+        res.status(401).json({ message: 'Incorrect password' });
       }
     }
   }catch{
-    res.json({ message: 'Error' });
+    res.status(400).json({ message: 'Error' });
   }
 });
 
