@@ -9,23 +9,17 @@ const contentSchema = new mongoose.Schema({
   category: String,
   date: String,
   clickcount: Number,
-  productsServices: [{
-    name: String,
-    description: String,
-    image: String,
-    price: String,
-    category: String
-  }],
+  productsServices: [String],
   consumer: [{
     ageFrom: Number,
     ageTo: Number,
     gender: String
   }],
-  profile: {
+  profile: [{
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'Profile',
     required: true,
-  },
+  }],
   user: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'User',
@@ -38,19 +32,21 @@ contentSchema.pre('save', async function (next) {
   const content = this;
 
   // Fetch the profile and user associated with this content
-  const profile = await Profile.findById(content.profile);
-  const user = await User.findById(content.user);
+  for (profileId of content.profile) {
+    const profile = await Profile.findById(profileId);
+    const user = await User.findById(content.user);
 
-  // If either the profile or user doesn't exist, prevent saving and return an error
-  if (!profile || !user) {
-    const error = new Error('Profile or User not found');
-    next(error);
-  }
+    // If either the profile or user doesn't exist, prevent saving and return an error
+    if (!profile || !user) {
+      const error = new Error('Profile or User not found');
+      next(error);
+    }
 
-  // If the user of the profile is not the same as the user of the content, prevent saving and return an error
-  if (profile.user.toString() !== user._id.toString()) {
-    const error = new Error('User of Profile is not the same as User of Content');
-    next(error);
+    // If the user of the profile is not the same as the user of the content, prevent saving and return an error
+    if (profile.user.toString() !== user._id.toString()) {
+      const error = new Error('User of Profile is not the same as User of Content');
+      next(error);
+    }
   }
 
   // If all checks pass, proceed with saving

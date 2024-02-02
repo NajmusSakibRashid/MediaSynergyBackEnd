@@ -12,6 +12,7 @@ const signupRouter = require('./routers/signup');
 const signinRouter = require('./routers/signin');
 const userRouter = require('./routers/user-router');
 const consumerRouter = require('./routers/consumer-router');
+const fileRouter=require('./routers/file');
 
 const port = process.env.PORT || 3000;
 
@@ -22,6 +23,7 @@ mongoose.connect(process.env.MONGODB_URI,{
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('uploads'));
 
 app.get('/',(req,res)=>{
   res.send('Hello World');
@@ -31,6 +33,7 @@ app.use('/signup', signupRouter);
 app.use('/signin', signinRouter);
 app.use('/user', userRouter);
 app.use('/consumer', consumerRouter);
+app.use('/file',fileRouter);
 
 app.listen(port,()=>{
   console.log(`Listening on port ${port}`);
