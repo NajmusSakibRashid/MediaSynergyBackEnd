@@ -1,0 +1,4 @@
+npm i
+npm install -g nodemon
+npm install -global yarn
+yarn start
