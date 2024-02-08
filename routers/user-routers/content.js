@@ -13,7 +13,7 @@ router.use('/schedule', scheduleRouter);
 router.get('/', async (req, res) => {
   try
   {
-    const contents = await Content.find({ user: req.user.id });
+    const contents = await Content.find({ user: req.user.id }).sort({ date: -1 });
     res.json(contents);
   }catch{
     res.json({ message: 'Error' });
