@@ -11,7 +11,10 @@ router.post('/', upload.single('file'), (req, res) => {
   // Handle the file as needed
   // ...
 
-  res.send('<img src="/' + req.file.filename + '">');
+  res.json({
+    message: 'File uploaded successfully',
+    name: req.file.filename,
+  })
 });
 
 module.exports=router;
