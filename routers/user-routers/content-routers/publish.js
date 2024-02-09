@@ -13,10 +13,11 @@ router.post('/', async (req, res) => {
     const productsServices = content.productsServices?content.productsServices.map((productService,index) => `${index+1}. ${productService}`).join('\n'):'' ;
     const targetConsumers = content.consumer?content.consumer.map((elem,index)=>`${index+1}. Gender ${elem.gender} from age ${elem.ageFrom} to ${elem.ageTo}`).join('\n'):'';
     const text = `<b>${content.title?content.title:''}</b>\n${content.description?content.description:''}\n<b>Products are:</b>\n${productsServices}\n<b>Target Consumers are:</b>\n${targetConsumers}`;
+    const medias=content.media.filter((elem)=>elem!=='');
     const post = await socialPost.post({
       "post": text,
       "platforms": req.body.platforms,
-      // "mediaUrls": content.media.length > 0 ? content.media : null,
+      "mediaUrls": medias.length>0?medias:undefined,
     }).catch((err) => {
       console.log(err);
     });
