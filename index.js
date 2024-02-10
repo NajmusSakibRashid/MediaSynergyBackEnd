@@ -13,6 +13,8 @@ const signinRouter = require('./routers/signin');
 const userRouter = require('./routers/user-router');
 const consumerRouter = require('./routers/consumer-router');
 const fileRouter=require('./routers/file');
+const scheduleHandler=require('./utility/scheduling-handler');
+const getnextScheduleMS=require('./utility/get-next-schedule-ms');
 
 const port = process.env.PORT || 3000;
 
@@ -38,3 +40,5 @@ app.use('/file',fileRouter);
 app.listen(port,()=>{
   console.log(`Listening on port ${port}`);
 });
+
+setTimeout(scheduleHandler,getnextScheduleMS());

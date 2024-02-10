@@ -13,6 +13,7 @@ const scheduleSchema = new mongoose.Schema({
   },
   date: String,
   platforms:[String],
+  repeat:String
 });
 
 module.exports = mongoose.model('Schedule', scheduleSchema);

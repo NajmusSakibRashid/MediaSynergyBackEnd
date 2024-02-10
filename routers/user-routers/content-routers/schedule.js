@@ -38,6 +38,7 @@ router.post('/',async (req,res)=>{
       content:req.body.content,
       date: req.body.date,
       platforms: req.body.platforms,
+      repeat: req.body.repeat,
     });
     res.json(newSchedule);
   }catch(err){
@@ -52,6 +53,7 @@ router.put('/:id',async (req,res)=>{
     const updatedSchedule=await Schedule.findOneAndUpdate({_id:req.params.id , user:req.user.id},{
       date: req.body.date,
       platforms: req.body.platforms,
+      repeat: req.body.repeat,
     });
     res.json(updatedSchedule);
   }catch{
