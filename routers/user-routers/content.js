@@ -44,6 +44,7 @@ router.post('/', async (req, res) => {
       consumer: req.body.consumer,
       keywords: req.body.keywords,
       clickcount: 0,
+      postIds: [],
     });
     res.json(newContent);
   } catch(err) {
@@ -71,6 +72,7 @@ router.put('/:id', async (req, res) => {
       productsServices: req.body.productsServices,
       consumer: req.body.consumer,
       keywords: req.body.keywords,
+      postIds: req.body.postIds,
     });
     res.json(content);
   }catch{

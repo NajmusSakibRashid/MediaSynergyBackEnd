@@ -26,6 +26,12 @@ const contentSchema = new mongoose.Schema({
     required: true,
   },
   keywords: [String],
+  postIds: [{
+    status: String,
+    id: String,
+    postUrl: String,
+    platform: String,
+  }]
 });
 
 contentSchema.pre('save', async function (next) {
