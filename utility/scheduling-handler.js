@@ -14,6 +14,7 @@ const schedulingHandler=async ()=>{
     return;
   schedules.forEach(async (schedule)=>{
     await Schedule.deleteOne({_id:schedule._id});
+    delete schedule._id;
     if(schedule.repeat==='daily')
     {
       const date=new Date(schedule.date);
