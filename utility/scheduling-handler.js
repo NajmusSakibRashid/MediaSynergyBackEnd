@@ -19,24 +19,21 @@ const schedulingHandler=async ()=>{
       const date=new Date(schedule.date);
       date.setDate(date.getDate()+1);
       schedule.date=formatDate(date);
-      const updatedSchedule = Object.assign({}, schedule);
-      await updatedSchedule.save();
+      await Schedule.create(schedule);
     }
     else if(schedule.repeat==='weekly')
     {
       const date=new Date(schedule.date);
       date.setDate(date.getDate()+7);
       schedule.date=formatDate(date);
-      const updatedSchedule = Object.assign({}, schedule);
-      await updatedSchedule.save();
+      await Schedule.create(schedule);
     }
     else if(schedule.repeat==='monthly')
     {
       const date=new Date(schedule.date);
       date.setMonth(date.getMonth()+1);
       schedule.date=formatDate(date);
-      const updatedSchedule = Object.assign({}, schedule);
-      await updatedSchedule.save();
+      await Schedule.create(schedule);
     }
     const content=await Content.findOne({_id:schedule.content});
     if(!content)
@@ -52,6 +49,7 @@ const schedulingHandler=async ()=>{
     }).catch((err)=>{
       console.log(err);
     });
+    console.log(post);
   });
 }
 
