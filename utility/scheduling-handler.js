@@ -7,35 +7,38 @@ const getNextScheduleMS=require('./get-next-schedule-ms');
 
 const schedulingHandler=async ()=>{
   setTimeout(schedulingHandler,getNextScheduleMS());
-  const crr = formatDate(new Date(new Date()+6*60*60*1000));
+  const utc=new Date();
+  utc.setHours(utc.getHours()+6);
+  const crr = formatDate(utc);
   console.log(crr);
   const schedules=await Schedule.find({date:{$lte:crr}});
+  console.log('we are here');
   if(!schedules)
     return;
   schedules.forEach(async (schedule)=>{
-    await Schedule.deleteOne({_id:schedule._id});
-    delete schedule._id;
     if(schedule.repeat==='daily')
     {
       const date=new Date(schedule.date);
       date.setDate(date.getDate()+1);
       schedule.date=formatDate(date);
-      await Schedule.create(schedule);
+      await Schedule.updateOne({_id:schedule._id},{$set:{date:schedule.date}});
     }
     else if(schedule.repeat==='weekly')
     {
       const date=new Date(schedule.date);
       date.setDate(date.getDate()+7);
       schedule.date=formatDate(date);
-      await Schedule.create(schedule);
+      await Schedule.updateOne({_id:schedule._id},{$set:{date:schedule.date}});
     }
     else if(schedule.repeat==='monthly')
     {
       const date=new Date(schedule.date);
       date.setMonth(date.getMonth()+1);
       schedule.date=formatDate(date);
-      await Schedule.create(schedule);
+      await Schedule.updateOne({_id:schedule._id},{$set:{date:schedule.date}});
     }
+    else if(schedule.repeat==='none')
+      await Schedule.deleteOne({_id:schedule._id}); 
     const content=await Content.findOne({_id:schedule.content});
     if(!content)
       return;
