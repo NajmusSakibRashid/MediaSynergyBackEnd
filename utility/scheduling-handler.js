@@ -7,7 +7,7 @@ const getNextScheduleMS=require('./get-next-schedule-ms');
 
 const schedulingHandler=async ()=>{
   setTimeout(schedulingHandler,getNextScheduleMS());
-  const crr = new Date().toLocaleString("en-US", { timeZone: "GMT+6" });
+  const crr = formatDate(new Date(new Date()+6*60*60*1000));
   console.log(crr);
   const schedules=await Schedule.find({date:{$lte:crr}});
   if(!schedules)
