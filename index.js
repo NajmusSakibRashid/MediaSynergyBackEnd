@@ -15,7 +15,6 @@ const consumerRouter = require('./routers/consumer-router');
 const fileRouter=require('./routers/file');
 const scheduleHandler=require('./utility/scheduling-handler');
 const getnextScheduleMS=require('./utility/get-next-schedule-ms');
-const notificationRouter=require('./routers/notifications');
 
 const port = process.env.PORT || 3000;
 
@@ -37,7 +36,6 @@ app.use('/signin', signinRouter);
 app.use('/user', userRouter);
 app.use('/consumer', consumerRouter);
 app.use('/file',fileRouter);
-app.use('/notifications',notificationRouter);
 
 app.listen(port,()=>{
   console.log(`Listening on port ${port}`);

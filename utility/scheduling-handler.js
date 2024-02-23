@@ -57,6 +57,7 @@ const schedulingHandler=async ()=>{
     console.log(post);
     content.postIds=[...content.postIds,...post.postIds];
     await Content.updateOne({_id:content._id},{$set:{postIds:content.postIds}});
+    post.user=schedule.user;
     eventEmitter.emit('post',post);
   });
 }
