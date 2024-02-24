@@ -3,6 +3,7 @@ const Content=require('../models/Content');
 const formatDate=require('./format-date');
 const socialPost=require('./social-post');
 const getNextScheduleMS=require('./get-next-schedule-ms');
+const eventEmitter=require('./event-emitter');
 
 
 const schedulingHandler=async ()=>{
@@ -56,6 +57,8 @@ const schedulingHandler=async ()=>{
     console.log(post);
     content.postIds=[...content.postIds,...post.postIds];
     await Content.updateOne({_id:content._id},{$set:{postIds:content.postIds}});
+    post.user=schedule.user;
+    eventEmitter.emit('post',post);
   });
 }
 
