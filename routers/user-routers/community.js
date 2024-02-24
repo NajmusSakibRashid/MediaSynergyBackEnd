@@ -1,19 +1,30 @@
-const express = require('express');
+const express = require("express");
+
 const router = express.Router();
-const Community = require('../../models/Community');
 
+const Community = require("../models/Community");
+console.log("Community debug");
 // Route to fetch all communities
-router.get('/communities', async (req, res) => {
-//   try {
-//     const communities = await Community.find().populate('admin').populate('posts').populate('users');
-//     console.log(communities);
-//     res.json(communities);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
+router.get("/", async (req, res) => {
+  // print("communities");
+  console.log("console hi");
+  try {
+    // res.json({ message: " response hi" });
+    const communities = await Community.find(); // Fetch all communities
+    res.json(communities); // Send communities as a response
+    // res.send('hellooooo from response')
+    console.log("communities", communities);
+  } catch (error) {
+    console.error("Error fetching communities:", error); // Log error to console
+    res.status(500).json({ message: error.message }); // Send error response
+  }
+  // res.send(dummyCommunities);
 
-    console.log('hi');
-    print('helloo');
+  // res.json(dummyCommunities);
+});
+
+router.get("/abc", (req, res) => {
+  res.send("Hello World");
 });
 
 module.exports = router;
