@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
+// const Profile = require('./Profile');
 const User = require('./User');
-const Post = require('./Post');
 
 const communitySchema = new mongoose.Schema({
   name: String,
