@@ -38,8 +38,10 @@ const schedulingHandler=async ()=>{
       schedule.date=formatDate(date);
       await Schedule.updateOne({_id:schedule._id},{$set:{date:schedule.date}});
     }
-    else if(schedule.repeat==='none')
+    else if(schedule.repeat==='none'){
       await Schedule.deleteOne({_id:schedule._id}); 
+      // console.log(schedule);
+    }
     const content=await Content.findOne({_id:schedule.content});
     if(!content)
       return;

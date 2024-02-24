@@ -7,7 +7,6 @@ router.get('/',(req,res)=>{
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
-  res.write(`${JSON.stringify({message:'Connected'})}\n\n`)
   eventEmitter.on('post',(post)=>{
     if(post.user==req.user.id)
       res.write(`data: ${JSON.stringify(post)}\n\n`);
@@ -15,6 +14,10 @@ router.get('/',(req,res)=>{
   res.on('close',()=>{
     eventEmitter.removeListener('post',()=>{});
   });
+})
+
+router.get('/retrieve',(req,res)=>{
+  
 })
 
 module.exports=router;

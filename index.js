@@ -37,6 +37,13 @@ app.use('/user', userRouter);
 app.use('/consumer', consumerRouter);
 app.use('/file',fileRouter);
 
+// const eventEmitter = require('./utility/event-emitter');
+
+// app.get('/test',(req,res)=>{
+//   eventEmitter.emit('post',{user:'659ec7a90efc9a260bf5d440',message:'Hello World'}); 
+//   res.send('Done');
+// })
+
 app.listen(port,()=>{
   console.log(`Listening on port ${port}`);
 });
