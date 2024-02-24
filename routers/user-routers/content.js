@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
   try
   {
     const contents = await Content.find({ user: req.user.id }).sort({ date: -1 });
+    console.log(req.user.id);
     res.json(contents);
   }catch{
     res.json({ message: 'Error' });
