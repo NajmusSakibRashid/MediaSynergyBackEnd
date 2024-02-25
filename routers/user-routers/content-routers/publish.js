@@ -3,6 +3,7 @@ const Content = require('../../../models/Content');
 const router = express.Router();
 
 const socialPost = require('../../../utility/social-post');
+const eventEmitter = require('../../../utility/event-emitter');
 
 router.post('/', async (req, res) => {
   try
@@ -21,6 +22,8 @@ router.post('/', async (req, res) => {
     }).catch((err) => {
       console.log(err);
     });
+    post.user = req.user.id;
+    eventEmitter.emit('post',post);
     res.json(post);
   }catch(err){
     console.log(err);

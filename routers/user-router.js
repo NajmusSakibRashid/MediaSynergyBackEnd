@@ -7,6 +7,7 @@ const profileRouter=require('./user-routers/profile');
 const notificationRouter=require('./user-routers/notifications');
 const buildProfileRouter=require('./user-routers/build-profile');
 const fetchProfileRouter=require('./user-routers/fetchProfile');
+const communityRouter = require('./user-routers/community');
 const User=require('../models/User');
 
 router.use(authMiddleware);
@@ -22,5 +23,6 @@ router.use('/profile',profileRouter);
 router.use('/notifications',notificationRouter);
 router.use('/build-profile',buildProfileRouter);
 router.use('/fetch-profile',fetchProfileRouter);
+router.use('/communities',communityRouter);
 
 module.exports=router;
