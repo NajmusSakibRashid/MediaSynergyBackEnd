@@ -6,6 +6,7 @@ const contentRouter=require('./user-routers/content');
 const profileRouter=require('./user-routers/profile');
 const notificationRouter=require('./user-routers/notifications');
 const buildProfileRouter=require('./user-routers/build-profile');
+const fetchProfileRouter=require('./user-routers/fetchProfile');
 const User=require('../models/User');
 
 router.use(authMiddleware);
@@ -20,5 +21,6 @@ router.use('/content',contentRouter);
 router.use('/profile',profileRouter);
 router.use('/notifications',notificationRouter);
 router.use('/build-profile',buildProfileRouter);
+router.use('/fetch-profile',fetchProfileRouter);
 
 module.exports=router;
