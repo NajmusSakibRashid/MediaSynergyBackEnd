@@ -5,6 +5,7 @@ const authMiddleware=require('../middlewares/authentication');
 const contentRouter=require('./user-routers/content');
 const profileRouter=require('./user-routers/profile');
 const notificationRouter=require('./user-routers/notifications');
+const communityRouter = require('./user-routers/community');
 const User=require('../models/User');
 
 router.use(authMiddleware);
@@ -18,5 +19,6 @@ router.get('/',async (req,res)=>{
 router.use('/content',contentRouter);
 router.use('/profile',profileRouter);
 router.use('/notifications',notificationRouter);
+router.use('/communities',communityRouter);
 
 module.exports=router;
