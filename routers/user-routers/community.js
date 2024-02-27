@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Define your routes here
 const Community = require("../../models/Community");
+const Post = require("../../models/Community-Post");
 
 // Route to fetch all communities of this user
 router.get("/my_communities", async (req, res) => {
@@ -59,6 +60,32 @@ router.post("/", async (req, res) => {
     res.json(newCommunity);
   } catch (err) {
     console.log(err);
+    res.json({ message: "Error" });
+  }
+});
+
+router.post("/createPost/:communityId", async (req, res) => {
+  console.log("creating post");
+  console.log(req.body);
+  console.log(req.user);
+  try {
+    const newPost = await Post.create({
+      title: req.body.title,
+      content: req.body.content,
+      author: req.user.id,
+      community: req.params.communityId,
+      comments: [],
+      likes: 0,
+      date: new Date(),
+    });
+
+    // res.json(newPost, "\neije banay dilam new post");
+    // res.send("new post created");
+    res.json(newPost);
+    // console.log("new post created \n", newPost);
+  } catch (err) {
+    console.log(err);
+
     res.json({ message: "Error" });
   }
 });
