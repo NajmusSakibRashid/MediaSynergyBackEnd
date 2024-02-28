@@ -106,6 +106,16 @@ router.post("/leave/:communityId/:userId", async (req, res) => {
   }
 });
 
+router.delete("/delete/:communityId"), async (req, res) => {
+  console.log("deleting community");
+  try {
+    const community = await Community.findOneAndDelete({ _id: req.params.communityId });
+    res.json(community);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error" });
+  }
+}
 
 
 // router.get("/")
