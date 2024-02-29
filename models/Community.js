@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 // const Profile = require('./Profile');
 const User = require('./User');
+const Post = require('./Community-Post');
 
 const communitySchema = new mongoose.Schema({
   name: String,
@@ -24,13 +25,13 @@ communitySchema.pre('save', async function (next) {
   const community = this;
 
   // Fetch the admin associated with this community
-  const admin = await User.findById(community.admin);
+  // const admin = await User.findById(community.admin);
 
-  // If the admin doesn't exist, prevent saving and return an error
-  if (!admin) {
-    const error = new Error('Admin user not found');
-    return next(error);
-  }
+  // // If the admin doesn't exist, prevent saving and return an error
+  // if (!admin) {
+  //   const error = new Error('Admin user not found');
+  //   return next(error);
+  // }
 
   // If all checks pass, proceed with saving
   next();

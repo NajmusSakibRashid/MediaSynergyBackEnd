@@ -106,6 +106,7 @@ router.post("/leave/:communityId/:userId", async (req, res) => {
     console.log(err);
     res.status(500).json({ message: "Error" });
   }
+  // res.send("leave community");
 });
 
 router.delete("/delete/:communityId"), async (req, res) => {
