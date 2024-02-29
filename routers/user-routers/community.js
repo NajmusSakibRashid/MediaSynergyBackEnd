@@ -4,7 +4,9 @@ const router = express.Router();
 // Define your routes here
 const Community = require("../../models/Community");
 const Post = require("../../models/Community-Post");
+const communityPostRouter = require("../community-post");
 
+router.use("/post", communityPostRouter);
 // Route to fetch all communities of this user
 router.get("/my_communities", async (req, res) => {
   try {
@@ -64,6 +66,8 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+// will not use this one
 router.post("/createPost/:communityId", async (req, res) => {
   console.log("creating post");
   console.log(req.body);

@@ -5,6 +5,8 @@ const router = express.Router();
 const Community = require("../models/Community");
 const Post = require("../models/Community-Post");
 console.log("Community debug");
+
+
 // Route to fetch all communities
 router.get("/", async (req, res) => {
   // print("communities");
