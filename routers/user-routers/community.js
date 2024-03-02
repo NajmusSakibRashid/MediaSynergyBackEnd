@@ -11,11 +11,11 @@ router.use("/post", communityPostRouter);
 router.get("/my_communities", async (req, res) => {
   try {
     console.log(req.user.id);
-    const communities = await Community.find({ 
+    const communities = await Community.find({
       users: req.user.id, // User is a member of the community
-      admin: { $ne: req.user.id } // User is not the admin of the community
+      admin: { $ne: req.user.id }, // User is not the admin of the community
     });
-        console.log(req.user.id);
+    console.log(req.user.id);
     res.json(communities);
     // res.send('heheeeee',req.user.id);
     // res.send("hehee");
@@ -29,6 +29,20 @@ router.get("/managed_by_me", async (req, res) => {
   try {
     console.log(req.user.id);
     const communities = await Community.find({ admin: req.user.id }); // Fetch all communities
+    console.log(req.user.id);
+    res.json(communities);
+    // res.send('heheeeee',req.user.id);
+    // res.send("hehee");
+    // console.log("communities of this user: \n", communities);
+  } catch {
+    res.json({ message: "Error" });
+  }
+});
+
+router.get("/suggest", async (req, res) => {
+  try {
+    console.log(req.user.id);
+    const communities = await Community.find({ users: { $nin: [req.user.id] } });
     console.log(req.user.id);
     res.json(communities);
     // res.send('heheeeee',req.user.id);
@@ -70,6 +84,18 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  console.log("deleting community");
+  try {
+    const deletedCommunity = await Community.findOneAndDelete({
+      _id: req.params.id,
+      admin: req.user.id,
+    });
+    res.json(deletedCommunity);
+  } catch {
+    res.json({ message: "Error" });
+  }
+});
 
 // will not use this one
 router.post("/createPost/:communityId", async (req, res) => {

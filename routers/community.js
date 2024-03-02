@@ -44,7 +44,7 @@ router.get("/post/:id", async (req, res) => {
 router.get("/allPosts/:communityId", async (req, res) => {
   console.log("fetching all posts");
   try {
-    const posts = await Post.find({ community: req.params.communityId });
+const posts = await Post.find({ community: req.params.communityId }).sort({ createdAt: 1 });
     res.json(posts);
     // res.send("posts,, all posts");
     // console.log(posts);
