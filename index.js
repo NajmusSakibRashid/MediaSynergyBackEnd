@@ -40,7 +40,6 @@ app.use("/file", fileRouter);
 app.use("/communities", communityRouter);
 app.use('/signup', signupRouter);
 app.use('/signin', signinRouter);
-app.use('/user', userRouter);
 app.use('/consumer', consumerRouter);
 app.use('/file',fileRouter);
 
