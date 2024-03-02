@@ -6,6 +6,7 @@ const Post = require('./Community-Post');
 const communitySchema = new mongoose.Schema({
   name: String,
   tagline: String,
+  image:[String],
   admin: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'User',

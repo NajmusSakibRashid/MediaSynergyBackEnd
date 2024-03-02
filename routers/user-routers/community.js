@@ -11,8 +11,11 @@ router.use("/post", communityPostRouter);
 router.get("/my_communities", async (req, res) => {
   try {
     console.log(req.user.id);
-    const communities = await Community.find({ users: req.user.id }); // Fetch all communities
-    console.log(req.user.id);
+    const communities = await Community.find({ 
+      users: req.user.id, // User is a member of the community
+      admin: { $ne: req.user.id } // User is not the admin of the community
+    });
+        console.log(req.user.id);
     res.json(communities);
     // res.send('heheeeee',req.user.id);
     // res.send("hehee");
@@ -54,6 +57,7 @@ router.post("/", async (req, res) => {
     const newCommunity = await Community.create({
       name: req.body.name,
       tagline: req.body.tagline,
+      image: req.body.image,
       admin: req.user.id,
       posts: [],
       users: [req.user.id],
