@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
     const post = await socialPost.post({
       "post": text,
       "platforms": req.body.platforms,
-      "mediaUrls": content.media.length > 0 ? content.media : null,
+      "mediaUrls":  medias.length > 0 ? medias : null,
     }).catch((err) => {
       console.log(err);
     });
